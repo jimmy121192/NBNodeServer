@@ -20,8 +20,9 @@ app.use(function(req, res, next) {
     next();
   });
 
-  app.get("/events", function(req, resp){
-    fetch("https://jimmysandbox.nationbuilder.com/api/v1/sites/jimmysandbox/pages/events?limit=10&access_token=99824f989930fca6e85f2ad5e9a47f7a3866c742257d1dcbb37e24139e598fe5").then(function(resp){
+  app.get("/events/:dataObj", function(req, resp){
+    var dataObj = JSON.parse(req.params.dataObj);
+    fetch("https://"+dataObj.site_slug+".nationbuilder.com/api/v1/sites/"+dataObj.site_slug+"/pages/events?limit=10&access_token="+dataObj.apikey+"").then(function(resp){
 			
         return resp.json();
     }).then(function(json){
