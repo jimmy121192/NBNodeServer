@@ -33,6 +33,25 @@ app.use(function(req, res, next) {
 })
 
 
+app.get("/create-event/:eventJSON", function(req, resp){
+    var dataObj = JSON.parse(req.params.eventJSON);
+    fetch("jimmysandbox.nationbuilder.com/api/v1/sites/jimmysandbox/pages/events?access_token=99824f989930fca6e85f2ad5e9a47f7a3866c742257d1dcbb37e24139e598fe5",{
+        method: 'POST', // or 'PUT'
+        body: dataObj , // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json'
+        }
+    }).then(function(resp){
+			
+        return resp.json();
+    }).then(function(json){
+        console.log(json);
+        resp.json(json);
+    });
+
+})
+
+
 
 app.listen(port, function(err){
 
